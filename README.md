@@ -2,45 +2,25 @@
 
 The IOAM Collector is used inside the [Cross-Layer Telemetry](https://github.com/Advanced-Observability/cross-layer-telemetry) (CLT) project.
 
-Its role is to enhance OpenTelemetry traces and spans for a specific backend (in
-this case, Jaeger) with IOAM data.
+Its role is to enhance OpenTelemetry traces and spans for a [OpenTelemetry Collector](https://opentelemetry.io/docs/collector) compatible backend with IOAM data.
 
-By default, it listens on port **7123**.
+## Building
 
-## Install
-
-Please make sure that golang and its environment are already installed. For this
-example, golang version **1.19** was used.
-
-### IOAM API
-
-Get the IOAM API (proto3) file **for Cross-Layer Telemetry** (CLT branch):
-```[bash]
-wget https://raw.githubusercontent.com/Advanced-Observability/ioam-api/clt/ioam_api.proto
+```bash
+git clone https://github.com/Advanced-Observability/ioam-collector
+cd ioam-collector
+go build
 ```
 
-And generate its `go` files:
-```[bash]
-protoc --go_out=. --go-grpc_out=. ioam_api.proto
-```
+## Running
 
-### Dependencies
 
-Automatically download dependencies:
-```
-go mod init ioam-collector
-go mod tidy
-```
+1. Set the environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` to the endpoint URL of your OpenTelemetry Collector.
+The list of compatible environment variables can be found [here](https://pkg.go.dev/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc#section-readme).
+2. Run the executable
 
-## Run it!
+By default, it listens on port **7123**, configurable with the `-p` flag.
 
-Either run it directly:
-```
-go run ioam-collector.go
-```
-
-Or compile it and run the executable:
-```
-go build ioam-collector.go
-./ioam-collector
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT="https://localhost:443" ./ioam-collector -p 7124
 ```
