@@ -1,4 +1,4 @@
-# IOAM Collector (golang interface for Jaeger)
+# IOAM Collector
 
 The IOAM Collector is used inside the [Cross-Layer Telemetry](https://github.com/Advanced-Observability/cross-layer-telemetry) (CLT) project.
 
@@ -13,7 +13,6 @@ go build
 ```
 
 ## Running
-
 
 1. Set the environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` to the endpoint URL of your OpenTelemetry Collector.
 The list of compatible environment variables can be found [here](https://pkg.go.dev/go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc#section-readme).
